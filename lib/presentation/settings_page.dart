@@ -21,7 +21,7 @@ class SettingsPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Padding(
-            padding: EdgeInsets.only(left: 18.0),
+            padding: EdgeInsets.all(18.0),
             child: PageTitle(
               title: "Settings",
             ),

@@ -19,47 +19,74 @@ class NoteListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      contentPadding: const EdgeInsets.only(left: 14),
-      title: Text(
-        // maxLines: 2,
-        // overflow: TextOverflow.ellipsis,
-        note.description,
-        style: GoogleFonts.montserrat(
-          fontSize: 16,
-          color: Theme.of(context).colorScheme.inversePrimary,
-          fontWeight: FontWeight.w300,
-        ),
+    return Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.primary,
+        borderRadius: BorderRadius.circular(8),
       ),
-      subtitle: Padding(
-        padding: const EdgeInsets.only(top: 8.0),
-        child: Text(
-          DateFormat('dd.MM.yyyy – kk:mm').format(note.date),
-          style: GoogleFonts.montserrat(
-            fontSize: 11,
-            color: Theme.of(context).colorScheme.inversePrimary.withOpacity(0.6),
-            fontWeight: FontWeight.w300,
-          ),
-        ),
-      ),
-      trailing: Row(
-        mainAxisSize: MainAxisSize.min,
+      margin: const EdgeInsets.only(left: 18, right: 18, top: 8),
+      child: Column(
         children: [
-          IconButton(
-            onPressed: update,
-            icon: Icon(
-              CupertinoIcons.pen,
-              size: 22,
-              color: Theme.of(context).colorScheme.inversePrimary,
+          ListTile(
+            contentPadding: const EdgeInsets.only(left: 12, right: 12),
+            title: Text(
+              // maxLines: 2,
+              // overflow: TextOverflow.ellipsis,
+              note.description,
+              style: GoogleFonts.montserrat(
+                fontSize: 16,
+                color: Theme.of(context).colorScheme.inversePrimary,
+                fontWeight: FontWeight.w300,
+              ),
             ),
+
+            // trailing: ,
           ),
-          IconButton(
-              onPressed: delete,
-              icon: const Icon(
-                CupertinoIcons.delete,
-                size: 20,
-                color: Colors.red,
-              )),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 14.0),
+                    child: Text(
+                      DateFormat('dd.MM.yyyy – kk:mm').format(note.date),
+                      style: GoogleFonts.montserrat(
+                        fontSize: 11,
+                        color:
+                        Theme.of(context).colorScheme.inversePrimary.withOpacity(0.6),
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+
+                  IconButton(
+                    onPressed: update,
+                    icon: Icon(
+                      CupertinoIcons.pen,
+                      size: 22,
+                      color: Theme.of(context).colorScheme.inversePrimary,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: delete,
+                    icon: const Icon(
+                      CupertinoIcons.delete,
+                      size: 20,
+                      color: Colors.red,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          )
         ],
       ),
     );

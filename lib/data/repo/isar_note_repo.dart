@@ -15,7 +15,7 @@ class IsarNoteRepo implements NoteRepository {
 
   @override
   Future<List<Note>> getAll() async {
-    final notes = await db.isarNotes.where().findAll();
+    final notes = await db.isarNotes.where(sort: Sort.desc).findAll();
     return notes.map((element) => element.toDomain()).toList();
   }
 

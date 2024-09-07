@@ -1,46 +1,48 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:notes/domain/models/note.dart';
 import 'package:notes/presentation/note_cubit.dart';
-import 'package:notes/presentation/theme/theme_cubit.dart';
 
 import 'components/custom_text_button.dart';
 import 'components/my_drawer.dart';
 import 'components/note_list_tile.dart';
 import 'components/page_title.dart';
 
-class NoteView extends StatelessWidget {
+class NoteView extends StatefulWidget {
   const NoteView({super.key});
 
   @override
+  State<NoteView> createState() => _NoteViewState();
+}
+
+class _NoteViewState extends State<NoteView> {
+  var isFabVisible = true;
+
+  final controller = ScrollController();
+
+
+  @override
   Widget build(BuildContext context) {
+    print('BUILD!_------------------------');
+
+    controller.addListener(() {
+      if(controller.offset > controller.position.maxScrollExtent && isFabVisible) {
+        setState(() {
+          isFabVisible = false;
+        });
+      } else if (controller.offset < controller.position.maxScrollExtent && !isFabVisible) {
+        setState(() {
+          isFabVisible = true;
+        });
+      }
+    });
+
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
-        // actions: [
-        //   IconButton(
-        //     onPressed: () {
-        //       context.read<ThemeCubit>().switchTheme();
-        //     },
-        //     icon: BlocBuilder<ThemeCubit, ThemeData>(
-        //       builder: (BuildContext context, state) {
-        //         var themeCubit = context.read<ThemeCubit>();
-        //         final icon = themeCubit.isDark
-        //             ? CupertinoIcons.sun_max_fill
-        //             : CupertinoIcons.moon_fill;
-        //         return Icon(
-        //           icon,
-        //           color: Theme.of(context).colorScheme.inversePrimary,
-        //           size: 18,
-        //         );
-        //       },
-        //     ),
-        //   ),
-        // ],
       ),
       drawer: const MyDrawer(),
       body: Column(
@@ -56,6 +58,7 @@ class NoteView extends StatelessWidget {
             child: BlocBuilder<NoteCubit, List<Note>>(
               builder: (BuildContext context, notes) {
                 return ListView.builder(
+                  controller: controller,
                   physics: const AlwaysScrollableScrollPhysics(
                     parent: BouncingScrollPhysics(),
                   ),
@@ -78,14 +81,16 @@ class NoteView extends StatelessWidget {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-          // backgroundColor: Colors.blue,
-          child: const Icon(
-            Icons.add,
-          ),
-          onPressed: () {
-            addNewNote(context);
-          }),
+      floatingActionButton: isFabVisible ? FloatingActionButton(
+        backgroundColor: Theme.of(context).colorScheme.secondary,
+        child: Icon(
+          Icons.add,
+          color: Theme.of(context).colorScheme.inversePrimary,
+        ),
+        onPressed: () {
+          addNewNote(context);
+        },
+      ) : null,
     );
   }
 
@@ -130,7 +135,11 @@ class NoteView extends StatelessWidget {
                 isDense: true,
                 hintText: "Enter note message here",
                 hintStyle: GoogleFonts.montserrat(
-                    fontWeight: FontWeight.normal, color: Theme.of(context).colorScheme.inversePrimary.withOpacity(0.5)),
+                    fontWeight: FontWeight.normal,
+                    color: Theme.of(context)
+                        .colorScheme
+                        .inversePrimary
+                        .withOpacity(0.5)),
               ),
             ),
           );

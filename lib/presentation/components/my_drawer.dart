@@ -16,7 +16,7 @@ class MyDrawer extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          DrawerHeader(
+          const DrawerHeader(
             child: Icon(Icons.note),
           ),
           DrawerTile(
@@ -26,7 +26,9 @@ class MyDrawer extends StatelessWidget {
               size: 18,
               color: Theme.of(context).colorScheme.inversePrimary,
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).pop();
+            },
           ),
           DrawerTile(
             title: "Settings",
@@ -37,7 +39,9 @@ class MyDrawer extends StatelessWidget {
             ),
             onTap: () {
               Navigator.of(context).pop();
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => const SettingsPage()),);
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const SettingsPage()),
+              );
             },
           ),
         ],
