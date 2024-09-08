@@ -17,7 +17,7 @@ class MyDrawer extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           const DrawerHeader(
-            child: Icon(Icons.note),
+            child: Icon(CupertinoIcons.pencil_circle_fill, size: 50,),
           ),
           DrawerTile(
             title: "Notes",

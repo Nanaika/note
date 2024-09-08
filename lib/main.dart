@@ -3,12 +3,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:isar/isar.dart';
+import 'package:notes/constants/consts.dart';
 import 'package:notes/data/models/isar_note.dart';
 import 'package:notes/data/repo/isar_note_repo.dart';
 import 'package:notes/domain/note_repository.dart';
 import 'package:notes/presentation/notes_page.dart';
 import 'package:notes/presentation/theme/theme_cubit.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
 
@@ -21,25 +23,32 @@ void main() async {
   ));
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 
+
+  final prefs = await SharedPreferences.getInstance();
+  var isDarkTheme = prefs.getBool(isDark);
+  isDarkTheme ??= false;
+
   final dir = await getApplicationDocumentsDirectory();
   final isar = await Isar.open([IsarNoteSchema], directory: dir.path);
   final repo = IsarNoteRepo(db: isar);
 
-  runApp(MyApp(repo: repo,));
+  runApp(MyApp(repo: repo, isDark: isDarkTheme,));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key, required this.repo});
+  const MyApp({super.key, required this.repo, required this.isDark});
 
   final NoteRepository repo;
+  final bool isDark;
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ThemeCubit(),
+      create: (context) => ThemeCubit(isDark: isDark),
       child: BlocBuilder<ThemeCubit, ThemeData>(
         builder: (BuildContext context, theme) {
+
           return MaterialApp(
 
             debugShowCheckedModeBanner: false,

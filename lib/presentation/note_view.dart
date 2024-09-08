@@ -21,10 +21,8 @@ class _NoteViewState extends State<NoteView> {
 
   final controller = ScrollController();
 
-
   @override
   Widget build(BuildContext context) {
-    print('BUILD!_------------------------');
 
     controller.addListener(() {
       if(controller.offset > controller.position.maxScrollExtent && isFabVisible) {

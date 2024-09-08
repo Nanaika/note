@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:notes/constants/consts.dart';
 import 'package:notes/presentation/components/page_title.dart';
 import 'package:notes/presentation/theme/theme_cubit.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -48,9 +50,11 @@ class SettingsPage extends StatelessWidget {
                             ),
                         ),
                         CupertinoSwitch(
-                          value: context.watch<ThemeCubit>().isDark,
-                          onChanged: (value) {
+                          value: context.read<ThemeCubit>().isDark,
+                          onChanged: (value) async {
                             context.read<ThemeCubit>().switchTheme();
+                            final prefs = await SharedPreferences.getInstance();
+                            prefs.setBool(isDark, value);
                           },
                         ),
                       ],
@@ -64,4 +68,7 @@ class SettingsPage extends StatelessWidget {
       ),
     );
   }
+
+
+
 }
