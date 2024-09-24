@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:notes/domain/note_repository.dart';
 
 import '../domain/models/note.dart';
+import '../domain/note_repository.dart';
 
 class NoteCubit extends Cubit<List<Note>> {
   NoteCubit({required this.repo}) : super([]) {

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:notes/domain/models/note.dart';
-import 'package:notes/presentation/note_cubit.dart';
 
+import '../domain/models/note.dart';
 import 'components/custom_text_button.dart';
 import 'components/my_drawer.dart';
 import 'components/note_list_tile.dart';
 import 'components/page_title.dart';
+import 'note_cubit.dart';
 
 class NoteView extends StatefulWidget {
   const NoteView({super.key});

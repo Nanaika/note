@@ -1,16 +1,17 @@
+import 'package:Notes/presentation/notes_page.dart';
+import 'package:Notes/presentation/theme/theme_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:isar/isar.dart';
-import 'package:notes/constants/consts.dart';
-import 'package:notes/data/models/isar_note.dart';
-import 'package:notes/data/repo/isar_note_repo.dart';
-import 'package:notes/domain/note_repository.dart';
-import 'package:notes/presentation/notes_page.dart';
-import 'package:notes/presentation/theme/theme_cubit.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'constants/consts.dart';
+import 'data/models/isar_note.dart';
+import 'data/repo/isar_note_repo.dart';
+import 'domain/note_repository.dart';
 
 void main() async {
 

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:notes/domain/note_repository.dart';
-import 'package:notes/presentation/note_cubit.dart';
 
+import '../domain/note_repository.dart';
+import 'note_cubit.dart';
 import 'note_view.dart';
 
 class NotesPage extends StatelessWidget {

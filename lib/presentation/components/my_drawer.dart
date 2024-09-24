@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:notes/presentation/components/drawer_tile.dart';
-import 'package:notes/presentation/settings_page.dart';
+
+import '../settings_page.dart';
+import 'drawer_tile.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({

@@ -1,4 +1,5 @@
-import 'package:notes/domain/models/note.dart';
+
+import 'models/note.dart';
 
 abstract class NoteRepository {
   Future<void> save(Note note);

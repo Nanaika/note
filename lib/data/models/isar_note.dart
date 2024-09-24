@@ -1,5 +1,6 @@
 import 'package:isar/isar.dart';
-import 'package:notes/domain/models/note.dart';
+
+import '../../domain/models/note.dart';
 
 part 'isar_note.g.dart';
 
