@@ -43,41 +43,43 @@ class _NoteViewState extends State<NoteView> {
         backgroundColor: Colors.transparent,
       ),
       drawer: const MyDrawer(),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Padding(
-            padding: EdgeInsets.all(18.0),
-            child: PageTitle(
-              title: "Notes",
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Padding(
+              padding: EdgeInsets.all(18.0),
+              child: PageTitle(
+                title: "Notes",
+              ),
             ),
-          ),
-          Expanded(
-            child: BlocBuilder<NoteCubit, List<Note>>(
-              builder: (BuildContext context, notes) {
-                return ListView.builder(
-                  controller: controller,
-                  physics: const AlwaysScrollableScrollPhysics(
-                    parent: BouncingScrollPhysics(),
-                  ),
-                  itemCount: notes.length,
-                  itemBuilder: (context, index) {
-                    final note = notes[index];
-                    return NoteListTile(
-                      note: note,
-                      update: () {
-                        editNote(context, note);
-                      },
-                      delete: () {
-                        deleteNote(context, note);
-                      },
-                    );
-                  },
-                );
-              },
+            Expanded(
+              child: BlocBuilder<NoteCubit, List<Note>>(
+                builder: (BuildContext context, notes) {
+                  return ListView.builder(
+                    controller: controller,
+                    physics: const AlwaysScrollableScrollPhysics(
+                      parent: BouncingScrollPhysics(),
+                    ),
+                    itemCount: notes.length,
+                    itemBuilder: (context, index) {
+                      final note = notes[index];
+                      return NoteListTile(
+                        note: note,
+                        update: () {
+                          editNote(context, note);
+                        },
+                        delete: () {
+                          deleteNote(context, note);
+                        },
+                      );
+                    },
+                  );
+                },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       floatingActionButton: isFabVisible ? FloatingActionButton(
         backgroundColor: Theme.of(context).colorScheme.secondary,

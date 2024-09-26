@@ -20,52 +20,54 @@ class SettingsPage extends StatelessWidget {
         backgroundColor: Colors.transparent,
         foregroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Padding(
-            padding: EdgeInsets.all(18.0),
-            child: PageTitle(
-              title: "Settings",
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding:
-                  const EdgeInsets.only(left: 18.0, top: 24.0, right: 18.0),
-              child: SingleChildScrollView(
-                physics: const AlwaysScrollableScrollPhysics(
-                  parent: BouncingScrollPhysics(),
-                ),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Dark mode",
-                            style: GoogleFonts.montserrat(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w300,
-                                color: Theme.of(context).colorScheme.inversePrimary
-                            ),
-                        ),
-                        CupertinoSwitch(
-                          value: context.read<ThemeCubit>().isDark,
-                          onChanged: (value) async {
-                            context.read<ThemeCubit>().switchTheme();
-                            final prefs = await SharedPreferences.getInstance();
-                            prefs.setBool(isDark, value);
-                          },
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Padding(
+              padding: EdgeInsets.all(18.0),
+              child: PageTitle(
+                title: "Settings",
               ),
             ),
-          )
-        ],
+            Expanded(
+              child: Padding(
+                padding:
+                    const EdgeInsets.only(left: 18.0, top: 24.0, right: 18.0),
+                child: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(
+                    parent: BouncingScrollPhysics(),
+                  ),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Dark mode",
+                              style: GoogleFonts.montserrat(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w300,
+                                  color: Theme.of(context).colorScheme.inversePrimary
+                              ),
+                          ),
+                          CupertinoSwitch(
+                            value: context.read<ThemeCubit>().isDark,
+                            onChanged: (value) async {
+                              context.read<ThemeCubit>().switchTheme();
+                              final prefs = await SharedPreferences.getInstance();
+                              prefs.setBool(isDark, value);
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
